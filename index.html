@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudda Navya Sri - Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                         /* --- BLACK & WHITE THEME ACCENTS --- */
+                        'dark-bg': '#000000', /* Black */
+                        'dark-card': '#1f2937', /* Dark Grey */
+                        'accent-light': '#f9fafb', /* Almost White */
+                        'accent-medium': '#d1d5db', /* Light Grey */
+                        'accent-dark': '#6b7280'   /* Medium Grey */
+                         /* --- END BLACK & WHITE THEME ACCENTS --- */
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'slide-in-left': 'slideInLeft 0.6s ease-out',
+                        'slide-in-right': 'slideInRight 0.6s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'gradient-shift': 'gradientShift 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        gradientShift: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' }
+                        },
+                        /* --- BLACK & WHITE GLOW ADJUSTMENT --- */
+                        glow: {
+                            '0%': { boxShadow: '0 0 15px rgba(249, 250, 251, 0.2)' }, /* White glow */
+                            '100%': { boxShadow: '0 0 25px rgba(249, 250, 251, 0.4)' } /* White glow */
+                        }
+                        /* --- END BLACK & WHITE GLOW ADJUSTMENT --- */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000; /* Black base */
+            color: #d1d5db; /* Light grey text default */
+        }
+        
+        /* --- BLACK & WHITE THEME APPLIED --- */
+        .hero-gradient {
+            background: linear-gradient(135deg, #000000 0%, #1f2937 50%, #4b5563 100%); /* Black to Dark Grey */
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff, #f9fafb, #e5e7eb); /* White to Light Grey */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+        }
+        /* --- END BLACK & WHITE THEME --- */
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Adjusted shadow for B&W theme */
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-icon:hover {
+            transform: translateY(-5px) rotate(5deg) scale(1.1);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 0.15em solid #f9fafb; /* White caret */
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #f9fafb } /* White caret blink */
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Adjusted particle color */
+        .particle {
+            position: absolute;
+            width: 3px; /* Slightly smaller */
+            height: 3px;
+            background: rgba(209, 213, 219, 0.3); /* Dim grey particle */
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out; /* Slower float */
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        /* Adjusted social icon hover shadow */
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+             filter: drop-shadow(0 10px 15px rgba(255, 255, 255, 0.15));
+        }
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.95); /* Darker modal bg */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+        .certificate-img {
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
+        .certificate-img:hover {
+            transform: scale(1.03);
+        }
+        
+        /* General styling adjustments for theme */
+        #header {
+            background-color: rgba(0, 0, 0, 0.7); /* Darker header background */
+            border-bottom-color: rgba(55, 65, 81, 0.5); /* Grey border */
+        }
+        section {
+            background-color: rgba(31, 41, 55, 0.1); /* Very subtle grey tint for sections */
+        }
+        footer {
+            background-color: #000000; /* Match body background */
+             border-top-color: rgba(55, 65, 81, 0.5); /* Grey border */
+        }
+        /* Button gradient for B&W theme */
+        .button-gradient {
+             background-image: linear-gradient(to right, #e5e7eb, #d1d5db); /* Light Grey gradient */
+             color: #111827; /* Dark text on light button */
+        }
+        .button-gradient:hover {
+             box-shadow: 0 10px 15px -3px rgba(209, 213, 219, 0.2), 0 4px 6px -2px rgba(209, 213, 219, 0.1);
+        }
+         .animate-glow { /* Adjust glow color */
+             animation: glow 2s ease-in-out infinite alternate;
+         }
+         .border-accent-light { /* Use light border */
+             border-color: #f9fafb;
+         }
+         .bg-accent-light { /* Use light background */
+              background-color: #f9fafb;
+         }
+         .hover\:text-accent-light:hover { /* Adjust hover text color */
+              color: #f9fafb;
+         }
+         .bg-slate-800\/50 { /* Card background */
+             background-color: rgba(31, 41, 55, 0.6); /* Dark grey card bg */
+         }
+          .border-slate-700\/50 { /* Card border */
+              border-color: rgba(55, 65, 81, 0.7);
+          }
+           input, textarea { /* Form styling */
+                background-color: rgba(55, 65, 81, 0.4); /* Dark grey form bg */
+                border-color: #4b5563; /* Medium grey border */
+                color: #e5e7eb;
+           }
+            input::placeholder, textarea::placeholder {
+                 color: #9ca3af; /* Medium grey placeholder */
+            }
+             input:focus, textarea:focus {
+                  border-color: #f9fafb; /* White border on focus */
+                  --tw-ring-color: rgba(249, 250, 251, 0.15); /* White ring on focus */
+             }
+             .hover\:border-accent-light:hover {
+                border-color: #f9fafb;
+             }
+             .group-hover\:text-accent-light:hover {
+                 color: #f9fafb;
+             }
+             /* Ensure mobile button gradient is also updated */
+             #mobile-menu .button-gradient {
+                 color: #111827; /* Dark text */
+             }
+             /* Make skill icons B&W */
+             .skill-icon svg {
+                 filter: grayscale(100%);
+                 opacity: 0.7;
+                 transition: filter 0.3s ease, opacity 0.3s ease;
+             }
+              .skill-icon:hover svg {
+                  filter: grayscale(0%);
+                  opacity: 1;
+              }
+             /* Adjust Project Tags for B&W */
+              .flex-wrap .bg-yellow-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              .flex-wrap .bg-blue-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              .flex-wrap .bg-orange-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              .flex-wrap .bg-red-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              .flex-wrap .bg-cyan-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              .flex-wrap .bg-teal-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              .flex-wrap .bg-green-500\/20 { background-color: rgba(110, 110, 110, 0.2); border-color: rgba(110,110,110,0.3); color: #d1d5db;}
+              /* Adjust GitHub button in cards */
+               #projects .bg-slate-700\/50 { background-color: rgba(55, 65, 81, 0.5); border-color: #4b5563;}
+               #projects .hover\:bg-slate-700:hover { background-color: rgba(55, 65, 81, 0.7);}
+               #projects .hover\:border-accent-teal:hover { border-color: #f9fafb;} /* Hover border white */
+               #projects .group-hover\:text-accent-teal:hover { color: #f9fafb;} /* Hover text white */
+               #projects .text-gray-300 { color: #d1d5db;} /* Ensure text is light grey */
+               #projects svg { fill: currentColor; } /* Ensure SVG inherits text color */
+
+
+
+    </style>
+</head>
+
+<body class="font-inter overflow-x-hidden">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 nav-blur transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-gradient">
+                    Navya Sri
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-accent-light transition-colors duration-300">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-accent-light transition-colors duration-300">About</a>
+                    <a href="#projects" class="text-gray-300 hover:text-accent-light transition-colors duration-300">Projects</a>
+                    <a href="#certificates" class="text-gray-300 hover:text-accent-light transition-colors duration-300">Certificates</a>
+                    <a href="#ecurricula" class="text-gray-300 hover:text-accent-light transition-colors duration-300">E-Curricula</a>
+                    <a href="#hackerrank" class="text-gray-300 hover:text-accent-light transition-colors duration-300">HackerRank</a>
+                    <a href="#contact" class="text-gray-300 hover:text-accent-light transition-colors duration-300">Contact</a>
+                    <a href="https://github.com/Navya-sri-05" target="_blank" class="button-gradient px-6 py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                        GitHub
+                    </a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none text-gray-300">
+                    <span id="hamburger" class="block">☰</span>
+                    <span id="close" class="hidden">✕</span>
+                </button>
+            </div>
+            
+            <div id="mobile-menu" class="mobile-menu fixed top-full left-0 w-full h-screen bg-black/95 nav-blur md:hidden"> {/* Darker mobile menu */}
+                <div class="flex flex-col items-center justify-center h-full space-y-8 text-xl">
+                    <a href="#home" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">About</a>
+                    <a href="#projects" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">Projects</a>
+                    <a href="#certificates" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">Certificates</a>
+                    <a href="#ecurricula" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">E-Curricula</a>
+                    <a href="#hackerrank" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">HackerRank</a>
+                    <a href="#contact" class="text-gray-300 hover:text-accent-light transition-colors duration-300 mobile-link">Contact</a>
+                    <a href="https://github.com/Navya-sri-05" target="_blank" class="button-gradient px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+         <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+         <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+         <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+         <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+         <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+         <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+         <div class="particle" style="left: 70%; animation-delay: 0.5s;"></div>
+         <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
+         <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="container mx-auto px-6 text-center z-10">
+            <div class="fade-in-up">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 typewriter">
+                    Hi, I'm <span class="text-gradient">Navya Sri</span>
+                </h1>
+            </div>
+            
+            <div class="fade-in-up" style="animation-delay: 0.2s;">
+                
+            </div>
+            
+            <div class="fade-in-up" style="animation-delay: 0.4s;">
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12 text-gray-400 leading-relaxed">
+                    I’m a Computer Science student with a strong passion for Java development, problem-solving, and building real-world applications. I love exploring new technologies and enhancing my coding skills through hands-on projects and challenges. My goal is to grow as a software engineer, contribute to impactful solutions, and work with top tech companies where I can learn, innovate, and make a difference.
+                </p>
+            </div>
+            
+            <div class="fade-in-up" style="animation-delay: 0.6s;">
+                <a href="#projects" class="button-gradient px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-110 transition-all duration-300 inline-block animate-glow">
+                    View My Work
+                </a>
+            </div>
+            
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
+                <div class="w-6 h-10 border-2 border-accent-light rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-accent-light rounded-full mt-2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">About Me</h2>
+                <div class="w-24 h-1 button-gradient mx-auto"></div> </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-in-up">
+                    <div class="relative">
+                        <div class="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500 animate-float">
+                            <img src="https://placehold.co/400x400/1f2937/e5e7eb?text=Navya+Sri" alt="Navya Sri" class="w-full h-full object-cover"> </div>
+                         <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-accent-light to-accent-medium rounded-full opacity-5 animate-pulse"></div> <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-accent-medium to-accent-dark rounded-full opacity-5 animate-pulse" style="animation-delay: 1s;"></div>
+                    </div>
+                </div>
+                
+                <div class="fade-in-up space-y-6">
+                    <div class="space-y-4 text-gray-300 text-lg leading-relaxed">
+                        <p>
+                            I am an aspiring software engineer with a strong passion for Java development, problem-solving, and building real-world applications.
+                        </p>
+                        <p>
+                            I enjoy exploring new technologies and improving my coding skills through hands-on projects and challenges.
+                        </p>
+                        <p>
+                            My goal is to work in a top tech company where I can apply my technical knowledge, contribute to impactful projects, and continue learning as a professional developer.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20">
+                <div class="fade-in-up text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-4 text-gradient">My Skills</h3>
+                    <p class="text-gray-400 text-lg">Technologies I work with</p>
+                </div>
+                
+                <div class="fade-in-up grid grid-cols-2 md:grid-cols-4 gap-6 md:max-w-2xl md:mx-auto">
+                    <div class="skill-icon bg-gray-800/50 hover:bg-gray-800/70 p-6 rounded-xl text-center group transition-all duration-300 border border-gray-700/50">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-red-500">
+                                <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold text-gray-400 group-hover:text-gray-200">Java</div>
+                    </div>
+                    <div class="skill-icon bg-gray-800/50 hover:bg-gray-800/70 p-6 rounded-xl text-center group transition-all duration-300 border border-gray-700/50">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg viewBox="0 0 24 24" class="w-12 h-12 mx-auto fill-blue-400">
+                                 <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.26-.02.21-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25c-.2 0-.38.09-.5.25-.12.16-.18.38-.18.62 0 .25.06.47.18.63.12.16.3.25.5.25.2 0 .38-.09.5-.25.12-.16.18-.38.18-.63 0-.24-.06-.46-.18-.62-.12-.16-.3-.25-.5-.25z"/>
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold text-gray-400 group-hover:text-gray-200">Python</div>
+                    </div>
+                    <div class="skill-icon bg-gray-800/50 hover:bg-gray-800/70 p-6 rounded-xl text-center group transition-all duration-300 border border-gray-700/50">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                           <svg class="w-12 h-12 mx-auto fill-blue-500" viewBox="0 0 128 128">
+                                <path d="M64.1 0C28.8 0 0 28.8 0 64.1s28.8 64.1 64.1 64.1 64.1-28.8 64.1-64.1S99.4 0 64.1 0zM89.7 75.3c-3.1 2.3-6.1 4.3-8.8 5.7 6.1 3.5 11.2 7.7 15.3 12.3-12.7 10.9-28.8 17.5-46.3 17.5 -16.4 0-31.5-5.9-43.2-15.7 3.5-3.8 8-7.3 13.5-10.2-2.7-1.3-5.3-2.9-7.9-4.8 -10.9-8.1-17.5-20-17.5-33.3 0-14.7 8.3-27.9 21-34.6 3.9 1.7 7.7 3.9 11.2 6.4 0.1 0 0.1-0.1 0.2-0.1 2.2-1.4 4.5-2.7 6.9-3.9 6.1-3 12.8-4.7 19.9-4.7 16 0 30.7 7.2 40.7 18.3C96.1 47.9 94 62.4 89.7 75.3z" />
+                           </svg>
+                        </div>
+                        <div class="text-sm font-semibold text-gray-400 group-hover:text-gray-200">C</div>
+                    </div>
+                    <div class="skill-icon bg-gray-800/50 hover:bg-gray-800/70 p-6 rounded-xl text-center group transition-all duration-300 border border-gray-700/50">
+                        <div class="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-12 h-12 mx-auto fill-purple-500" viewBox="0 0 128 128">
+                                <path d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zM97.9 74.2l-14.8 14.8H70.3l-5.6-5.6v-2.8H51.9v2.8l-5.6 5.6H33.4L18.6 74.2v-12.8l5.6-5.6h2.8V51.9h-2.8l-5.6-5.6V33.4l14.8-14.8h12.8l5.6 5.6v2.8h12.8v-2.8l5.6-5.6h12.8l14.8 14.8v12.8l-5.6 5.6h-2.8v12.8h2.8l5.6 5.6v12.8z M84.1 40.8h-5.6V35H70.3v5.8h-5.6v8.4h5.6v8.4H78.5v5.8h5.6v-5.8h5.8v-8.4h-5.8V40.8z M57.7 40.8h-5.6V35H43.7v5.8h-5.6v8.4h5.6v8.4h8.4v5.8h5.6v-5.8h5.8v-8.4h-5.8V40.8z" />
+                            </svg>
+                        </div>
+                        <div class="text-sm font-semibold text-gray-400 group-hover:text-gray-200">C#</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">My Projects</h2>
+                <div class="w-24 h-1 button-gradient mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Projects from my GitHub and coursework</p>
+            </div>
+            
+             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm flex flex-col justify-between">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">Online Book Store</h3>
+                        <p class="text-gray-400 mb-4 h-24 overflow-y-auto">
+                            Developed a full-stack Java-based web application that enables users to browse, purchase, and review books online. The system provides secure user authentication, book search, shopping cart functionality, and order tracking.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">Java</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">JDBC</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">MySQL</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">HTML/CSS</span>
+                        </div>
+                        
+                        <div class="flex space-x-4 mt-auto"> <a href="https://github.com/Navya-sri-05" target="_blank" class="flex-1 bg-gray-700/50 hover:bg-gray-700/70 border border-gray-600 text-center py-2 rounded-lg transition-all duration-300 hover:border-accent-light group">
+                                <span class="flex items-center justify-center text-gray-300 group-hover:text-accent-light">
+                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    GitHub
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm flex flex-col justify-between" style="animation-delay: 0.2s;">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">Password Strength Checker</h3>
+                        <p class="text-gray-400 mb-4 h-24 overflow-y-auto">
+                            A simple and responsive web app that checks how strong your password is in real time! It analyzes and visually shows whether it’s Weak, Medium, or Strong using a dynamic strength bar.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">React</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">TypeScript</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">Tailwind CSS</span>
+                        </div>
+                        
+                        <div class="flex space-x-4 mt-auto">
+                            <a href="https://github.com/Navya-sri-05/PASSWORD-CHECKER" target="_blank" class="flex-1 bg-gray-700/50 hover:bg-gray-700/70 border border-gray-600 text-center py-2 rounded-lg transition-all duration-300 hover:border-accent-light group">
+                                <span class="flex items-center justify-center text-gray-300 group-hover:text-accent-light">
+                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    GitHub
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm flex flex-col justify-between" style="animation-delay: 0.4s;">
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">SignBridge — Turning Silence into Conversations</h3>
+                        <p class="text-gray-400 mb-4 h-24 overflow-y-auto">
+                            A two-way sign-language ↔ speech/text live translator. SignBridge uses AI, computer vision, and 3D avatars to enable seamless conversations between hearing and non-hearing communities.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">JavaScript</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">AI</span>
+                            <span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-medium border border-gray-600">Computer Vision</span>
+                        </div>
+                        
+                        <div class="flex space-x-4 mt-auto">
+                            <a href="https://github.com/Navya-sri-05/SIGNBRIDGE-2.0-FINAL" target="_blank" class="flex-1 bg-gray-700/50 hover:bg-gray-700/70 border border-gray-600 text-center py-2 rounded-lg transition-all duration-300 hover:border-accent-light group">
+                                <span class="flex items-center justify-center text-gray-300 group-hover:text-accent-light">
+                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    GitHub
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">Certificates & Achievements</h2>
+                <div class="w-24 h-1 button-gradient mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">NPTEL progress and hackathon participation (Click to enlarge)</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm">
+                    <img src="images/cert-nptel.jpg" alt="NPTEL Progress" class="w-full h-64 object-cover object-top certificate-img"
+                         onclick="openModal(this.src)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">NPTEL Progress</h3>
+                        <p class="text-gray-400 text-sm">Course progress and assessment scores for NPTEL programming assignments.</p>
+                    </div>
+                </div>
+                
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm" style="animation-delay: 0.2s;">
+                    <img src="images/hacktrix.jpg" alt="HACKTRIX '25 Certificate" class="w-full h-64 object-cover object-top certificate-img"
+                         onclick="openModal(this.src)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">HACKTRIX '25</h3>
+                        <p class="text-gray-400 text-sm">Certificate of Participation in "HACKTRIX '25 - An Open Innovation Hackathon".</p>
+                    </div>
+                </div>
+                
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm" style="animation-delay: 0.4s;">
+                    <img src="images/innovate.jpg" alt="Innovatex'25 Certificate" class="w-full h-64 object-cover object-top certificate-img"
+                         onclick="openModal(this.src)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">Innovatex'25 - CODECRUX</h3>
+                        <p class="text-gray-400 text-sm">Successfully participated in CODECRUX - OOPS ODYSSEY (ROUND 2).</p>
+                    </div>
+                </div>
+
+                <div class="fade-in-up card-hover bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 backdrop-blur-sm" style="animation-delay: 0.6s;">
+                    <img src="images/inceptrix.jpg" alt="Inceptrix Hackathon 2025 Certificate" class="w-full h-64 object-cover object-top certificate-img"
+                         onclick="openModal(this.src)">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-gradient">Inceptrix Hackathon 2025</h3>
+                        <p class="text-gray-400 text-sm">Participated in the First Round of Inceptrix Hackathon 2025.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="ecurricula" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">E-Curricula Completion</h2>
+                <div class="w-24 h-1 button-gradient mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Completion wheel for 21CSC203P – Advanced Programming Practice.</p>
+            </div>
+            
+            <div class="fade-in-up bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 max-w-4xl mx-auto">
+                <img src="images/ecurricula.jpg" alt="E-Curricula Wheel" class="w-full rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <section id="hackerrank" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">HackerRank Submissions</h2>
+                <div class="w-24 h-1 button-gradient mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">My recent HackerRank submissions.</p>
+            </div>
+            
+            <div class="fade-in-up bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50 max-w-5xl mx-auto">
+                <img src="images/hackerrank.jpg" alt="HackerRank Submissions" class="w-full rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="fade-in-up text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gradient">Get In Touch</h2>
+                <div class="w-24 h-1 button-gradient mx-auto mb-6"></div>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">I'm always interested in new opportunities and collaborations. Let's connect!</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="fade-in-up bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="name" class="text-sm font-semibold text-gray-300">Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 border rounded-lg focus:border-accent-light focus:ring-2 focus:ring-accent-light/20 transition-all duration-300 placeholder-gray-500" placeholder="Your Name" required>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="email" class="text-sm font-semibold text-gray-300">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 border rounded-lg focus:border-accent-light focus:ring-2 focus:ring-accent-light/20 transition-all duration-300 placeholder-gray-500" placeholder="your.email@example.com" required>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="message" class="text-sm font-semibold text-gray-300">Message</label>
+                            <textarea id="message" name="message" rows="6" class="w-full px-4 py-3 border rounded-lg focus:border-accent-light focus:ring-2 focus:ring-accent-light/20 transition-all duration-300 placeholder-gray-500 resize-none" placeholder="Tell me about your project or just say hello!" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="button-gradient px-8 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 w-full md:w-auto">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com/Navya-sri-05" target="_blank" class="social-icon text-gray-400 hover:text-accent-light text-2xl transition-all duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon text-gray-400 hover:text-accent-light text-2xl transition-all duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon text-gray-400 hover:text-accent-light text-2xl transition-all duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="text-gray-400 text-sm">
+                    <p>&copy; 2025 Mudda Navya Sri. All rights reserved.</p>
+                    <p class="mt-2">Built with using Tailwind CSS</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // --- SCRIPT FOR MODAL ---
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImage");
+        
+        function openModal(src) {
+            modal.style.display = "flex";
+            modalImg.src = src;
+        }
+        
+        function closeModal() {
+            modal.style.display = "none";
+        }
+        // --- END SCRIPT FOR MODAL ---
+
+        // Mobile Menu Toggle
+         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+         const mobileMenu = document.getElementById('mobile-menu');
+         const hamburger = document.getElementById('hamburger');
+         const close = document.getElementById('close');
+         const mobileLinks = document.querySelectorAll('.mobile-link');
+         let isMenuOpen = false;
+         mobileMenuBtn.addEventListener('click', () => {
+             isMenuOpen = !isMenuOpen;
+             if (isMenuOpen) {
+                 mobileMenu.classList.add('active');
+                 hamburger.classList.add('hidden');
+                 close.classList.remove('hidden');
+                 document.body.style.overflow = 'hidden';
+             } else {
+                 mobileMenu.classList.remove('active');
+                 hamburger.classList.remove('hidden');
+                 close.classList.add('hidden');
+                 document.body.style.overflow = 'auto';
+             }
+         });
+         mobileLinks.forEach(link => {
+             link.addEventListener('click', () => {
+                 isMenuOpen = false;
+                 mobileMenu.classList.remove('active');
+                 hamburger.classList.remove('hidden');
+                 close.classList.add('hidden');
+                 document.body.style.overflow = 'auto';
+             });
+         });
+         // Smooth Scroll for Navigation Links
+         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+             anchor.addEventListener('click', function (e) {
+                 e.preventDefault();
+                 const target = document.querySelector(this.getAttribute('href'));
+                 if (target) {
+                     const headerHeight = document.getElementById('header').offsetHeight;
+                     const targetPosition = target.offsetTop - headerHeight;
+                     
+                     window.scrollTo({
+                         top: targetPosition,
+                         behavior: 'smooth'
+                     });
+                 }
+             });
+         });
+         // Intersection Observer for Fade-in Animations
+         const observerOptions = {
+             threshold: 0.1,
+             rootMargin: '0px 0px -50px 0px'
+         };
+         const observer = new IntersectionObserver((entries) => {
+             entries.forEach(entry => {
+                 if (entry.isIntersecting) {
+                     entry.target.classList.add('animate');
+                 }
+             });
+         }, observerOptions);
+         document.querySelectorAll('.fade-in-up').forEach(el => {
+             observer.observe(el);
+         });
+         // Header Background on Scroll
+         window.addEventListener('scroll', () => {
+             const header = document.getElementById('header');
+             if (window.scrollY > 100) {
+                  header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)'; /* Darker on scroll */
+                  header.style.borderBottomColor = 'rgba(55, 65, 81, 0.7)';
+             } else {
+                  header.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; /* Default header */
+                  header.style.borderBottomColor = 'rgba(55, 65, 81, 0.5)';
+             }
+         });
+         // Typewriter Effect
+         window.addEventListener('load', () => {
+             const heroTitle = document.querySelector('.typewriter');
+             if (heroTitle) {
+                 setTimeout(() => {
+                     heroTitle.style.animation = 'none';
+                     heroTitle.style.borderRight = '0.15em solid #f9fafb'; // Match caret color
+                     heroTitle.style.animation = 'blink-caret 0.8s step-end infinite';
+                 }, 3500);
+             }
+         });
+         // Dynamic Particle Animation
+         function createParticle() {
+             const particle = document.createElement('div');
+             particle.className = 'particle';
+             particle.style.left = Math.random() * 100 + '%';
+             particle.style.top = Math.random() * 100 + '%';
+             particle.style.animationDelay = Math.random() * 5 + 's'; // Slower delay
+             particle.style.animationDuration = (Math.random() * 4 + 3) + 's'; // Slower duration
+             document.querySelector('.fixed.inset-0').appendChild(particle);
+             setTimeout(() => {
+                 particle.remove();
+             }, 8000); // Longer lifetime
+         }
+         setInterval(createParticle, 2500); // Less frequent
+         // Form Submission
+         document.querySelector('form').addEventListener('submit', function(e) {
+             e.preventDefault();
+             const formData = new FormData(this);
+             const name = formData.get('name');
+             const email = formData.get('email');
+             const message = formData.get('message');
+             if (name && email && message) {
+                 const button = this.querySelector('button[type="submit"]');
+                 const originalText = button.textContent;
+                 button.textContent = 'Message Sent!';
+                 button.style.background = 'linear-gradient(135deg, #10B981, #059669)'; // Success Green
+                 button.classList.remove('button-gradient'); 
+                 button.classList.add('text-white'); // Ensure text is white on green
+                 this.reset();
+                 setTimeout(() => {
+                     button.textContent = originalText;
+                     button.style.background = ''; // Remove inline style
+                     button.classList.add('button-gradient'); 
+                     button.classList.remove('text-white'); 
+                     button.classList.add('text-gray-900'); // Add back dark text
+                 }, 3000);
+                 console.log('Form submitted:', { name, email, message });
+             }
+         });
+         // Add hover effects to project cards
+         document.querySelectorAll('.card-hover').forEach(card => {
+             card.addEventListener('mouseenter', () => {
+                 card.style.transform = 'translateY(-8px) scale(1.02)';
+                 card.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 255, 255, 0.1)'; // Adjusted shadow
+             });
+             
+             card.addEventListener('mouseleave', () => {
+                 card.style.transform = 'translateY(0) scale(1)';
+                 card.style.boxShadow = 'none';
+             });
+         });
+    </script>
+</body>
+</html>
